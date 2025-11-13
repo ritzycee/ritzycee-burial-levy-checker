@@ -6,7 +6,7 @@ import numpy as np
 data_dict = {
     'Deadline': ['14/11/25', '21/11/25', '14/11/25', '21/11/25', '28/11/25', '28/11/25', '28/11/25'],
     'Amount (#)': [172375, 172375, 172375, 172375, 57460, 57460, 57460],
-    'Amount Paid (#)': [0, 0, (9480 + 100000), 0, 0, 0, 0]
+    'Amount Paid (#)': [0, 0, (9480 + 90000), 0, 0, 0, 0]
 }
 
 # Compute balance automatically
@@ -32,5 +32,6 @@ if selected_name:
 # Optional: Show all data (for admin view)
 with st.expander("📊 View all member records"):
     st.dataframe(df)
+
 
 
