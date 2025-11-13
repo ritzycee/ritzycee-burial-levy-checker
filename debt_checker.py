@@ -31,7 +31,10 @@ if selected_name:
 
 # Optional: Show all data (for admin view)
 with st.expander("📊 View all member records"):
+    st.write('Total amount realized = {} / {}'.
+             format(sum(df['Amount Paid (#)']),sum(df['Amount (#)'])))
     st.dataframe(df)
+
 
 
 
