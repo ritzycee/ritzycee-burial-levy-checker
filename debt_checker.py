@@ -8,6 +8,8 @@ data_dict = {
     'Amount (#)': [172375, 172375, 172375, 172375, 57460, 57460, 57460],
     'Amount Paid (#)': [0, 0, (9480 + 100000 - 40200 + 50000), 0, 0, 0, 0]
 }
+#Convert to date format
+data_dict['Deadline'] = pd.to_datetime(data_dict['Deadline'],dayfirst=True)
 
 # Compute balance automatically
 data_dict['Balance (#)'] = np.array(data_dict['Amount (#)']) - np.array(data_dict['Amount Paid (#)'])
@@ -20,6 +22,13 @@ df = pd.DataFrame(data_dict, index=names)
 
 # --- Streamlit App ---
 st.title("💰 Burial Levy Checker")
+
+#Deadline reminder
+for name in names:
+    str_pay_day = str(df.loc[[name],'Deadline']).split('-')[2]
+    str_to_day = str(date.today()).split('-')[2]
+    if str_pay_day < str_to_day:
+        st.subheader('⚠️ {}! your burial levy is over due.\nKindly make payment!'.format(name))
 
 # Dropdown to choose member
 selected_name = st.selectbox("Select your name:", names)
@@ -34,6 +43,7 @@ with st.expander("📊 View all member records"):
     st.write('Total amount realized so far = {} / {}'.
              format(sum(df['Amount Paid (#)']),sum(df['Amount (#)'])))
     st.dataframe(df)
+
 
 
 
