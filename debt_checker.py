@@ -28,8 +28,11 @@ st.title("💰 Burial Levy Checker")
 for name in names:
     str_pay_day = str(df.loc[[name],'Deadline']).split('-')[2]
     str_to_day = str(date.today()).split('-')[2]
-    if str_pay_day < str_to_day:
+    balance = df.loc[name,'Balance (#)']
+    if str_pay_day < str_to_day and balance != 0:
         st.subheader('⚠️ {}! your burial levy is over due.\nKindly make payment!'.format(name))
+    if balance == 0:
+        st.subheader('👏 Congratulations, {}!\nYou have successfully cleared your debt.'.format(name))
 
 # Dropdown to choose member
 selected_name = st.selectbox("Select your name:", names)
@@ -44,6 +47,7 @@ with st.expander("📊 View all member records"):
     st.write('Total amount realized so far = {} / {}'.
              format(sum(df['Amount Paid (#)']),sum(df['Amount (#)'])))
     st.dataframe(df)
+
 
 
 
